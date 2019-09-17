@@ -1,0 +1,32 @@
+#shader vertex
+#version 330 core
+
+layout(location = 0) in vec3 position;
+
+uniform float u_dTheta;
+
+float pi = atan(1) * 4;
+
+float magnitude = sqrt(pow(position.x, 2.0f) + pow(position.y, 2.0f));
+float theta = mod(atan(position.y / position.x), pi);
+
+void main() {
+
+	if(position.y < 0) {
+		theta += pi;
+	}
+	gl_Position = vec4 (magnitude * cos(theta + u_dTheta), magnitude * sin(theta + u_dTheta), position.z, 1.0);
+};
+
+
+
+#shader fragment
+#version 330 core
+
+layout(location = 0) out vec4 color;
+
+uniform vec4 u_Color;
+
+void main() {
+	color = u_Color;
+};

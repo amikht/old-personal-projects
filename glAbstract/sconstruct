@@ -1,0 +1,15 @@
+import os
+
+cflags = ""
+lflags = ""
+env = Environment(ENV = os.environ,
+	CPPPATH=["Dependencies\\sfml\\include",
+	         "Dependencies\\glew\\include",
+	         "include"],
+	LIBPATH=["Dependencies\\sfml\\lib",
+	         "Dependencies\\glew\\lib\\x64"])
+
+cflags += " -std=c++17"
+
+env.Append(CCFLAGS = cflags)
+env.SharedLibrary("AbstractGL", Glob("src\\*.cpp"), LIBS=["sfml-window", "sfml-main", "sfml-system", "opengl32", "glew32"])
